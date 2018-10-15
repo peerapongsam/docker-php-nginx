@@ -1,29 +1,45 @@
 version: '2'
 services: 
-  php:
-    image: peerapongsam/php:7.1.16-fpm-alpine
-    build: ./php/
-#    container_name: php_fpm
-    restart: always
+
+  php72:
+    image: php:7.2.10-fpm-alpine
+    restart: unless-stopped
+    volumes:
+      - ./www:/var/www/html
+    expose:
+      - "9000"
+
+  php71:
+    image: php:7.1.22-fpm-alpine
+    restart: unless-stopped
+    volumes:
+      - ./www:/var/www/html
+    expose:
+      - "9000"
+
+  php56:
+    image: php:5.6.38-fpm-alpine
+    restart: unless-stopped
     volumes:
       - ./www:/var/www/html
     expose:
       - "9000"
 
   nginx:
-    image: peerapongsam/nginx:1.13-alpine
+    image: nginx:1.15.5-alpine
     build: ./nginx/
-#    container_name: nginx
-    restart: always
+    restart: unless-stopped
     volumes:
       - ./nginx/certs:/etc/nginx/certs
       - ./nginx/conf/nginx.conf:/etc/nginx/conf/nginx.conf:ro
       - ./nginx/conf.d:/etc/nginx/conf.d:ro
     volumes_from:
-      - php
+      - php72
     ports:
-      - 8080:80
-      - 4433:443
+      - 80:80
+      - 443:443
     environment:
-      - NGINX_HOST=test.dev.localhost
-      - NGINX_HOST=test2.dev.localhost
+      - NGINX_HOST=php72.dev.localhost
+      - NGINX_HOST=php71.dev.localhost
+      - NGINX_HOST=php56.dev.localhost
+  
