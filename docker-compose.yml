@@ -6,7 +6,8 @@ services:
     restart: unless-stopped
     working_dir: /var/www/html
     volumes:
-      - ./www:/var/www/html
+      - ./php/conf.d/timezone.ini:/usr/local/etc/php/conf.d/timezone.ini
+      - ${SOURCE_DIR}:${DESTINATION_DIR}
     expose:
       - "9000"
 
@@ -15,7 +16,8 @@ services:
     restart: unless-stopped
     working_dir: /var/www/html
     volumes:
-      - ./www:/var/www/html
+      - ./php/conf.d/timezone.ini:/usr/local/etc/php/conf.d/timezone.ini
+      - ${SOURCE_DIR}:${DESTINATION_DIR}
     expose:
       - "9000"
 
@@ -24,7 +26,8 @@ services:
     restart: unless-stopped
     working_dir: /var/www/html
     volumes:
-      - ./www:/var/www/html
+      - ./php/conf.d/timezone.ini:/usr/local/etc/php/conf.d/timezone.ini
+      - ${SOURCE_DIR}:${DESTINATION_DIR}
     expose:
       - "9000"
 
@@ -33,7 +36,8 @@ services:
     restart: unless-stopped
     working_dir: /var/www/html
     volumes:
-      - ./www:/var/www/html
+      - ./php/conf.d/timezone.ini:/usr/local/etc/php/conf.d/timezone.ini
+      - ${SOURCE_DIR}:${DESTINATION_DIR}
     expose:
       - "9000"
 
@@ -46,8 +50,8 @@ services:
       - ./nginx/certs:/etc/nginx/certs
       - ./nginx/conf/nginx.conf:/etc/nginx/conf/nginx.conf:ro
       - ./nginx/conf.d:/etc/nginx/conf.d:ro
-    volumes_from:
-      - php72
+      - ./nginx/log:/var/log/nginx
+      - ${SOURCE_DIR}:${DESTINATION_DIR}
     ports:
       - 80:80
       - 443:443
@@ -56,6 +60,3 @@ services:
       - NGINX_HOST=php71.dev.localhost
       - NGINX_HOST=php56.dev.localhost
       - NGINX_HOST=php55.dev.localhost
-
-  volumes:
-    www
