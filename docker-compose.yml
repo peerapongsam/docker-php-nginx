@@ -4,6 +4,7 @@ services:
   php72:
     image: php:7.2.10-fpm-alpine
     restart: unless-stopped
+    working_dir: /var/www/html
     volumes:
       - ./www:/var/www/html
     expose:
@@ -12,6 +13,7 @@ services:
   php71:
     image: php:7.1.22-fpm-alpine
     restart: unless-stopped
+    working_dir: /var/www/html
     volumes:
       - ./www:/var/www/html
     expose:
@@ -20,6 +22,16 @@ services:
   php56:
     image: php:5.6.38-fpm-alpine
     restart: unless-stopped
+    working_dir: /var/www/html
+    volumes:
+      - ./www:/var/www/html
+    expose:
+      - "9000"
+
+  php55:
+    image: php:5.5.38-fpm-alpine
+    restart: unless-stopped
+    working_dir: /var/www/html
     volumes:
       - ./www:/var/www/html
     expose:
@@ -29,6 +41,7 @@ services:
     image: nginx:1.15.5-alpine
     build: ./nginx/
     restart: unless-stopped
+    working_dir: /var/www/html
     volumes:
       - ./nginx/certs:/etc/nginx/certs
       - ./nginx/conf/nginx.conf:/etc/nginx/conf/nginx.conf:ro
@@ -42,4 +55,7 @@ services:
       - NGINX_HOST=php72.dev.localhost
       - NGINX_HOST=php71.dev.localhost
       - NGINX_HOST=php56.dev.localhost
-  
+      - NGINX_HOST=php55.dev.localhost
+
+  volumes:
+    www
