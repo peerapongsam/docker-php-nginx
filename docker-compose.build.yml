@@ -1,0 +1,22 @@
+version: '2'
+services: 
+
+  php72:
+    image: peerapongsam/php:7.2.10-fpm-alpine
+    build: ./php/7.2
+    
+  php71:
+    image: peerapongsam/php:7.1.22-fpm-alpine
+    build: ./php/7.1
+    
+  php70:
+    image: peerapongsam/php:7.0.32-fpm-alpine
+    build: ./php/7.2
+    
+  php56:
+    image: peerapongsam/php:5.6.38-fpm-alpine
+    build: ./php/5.6
+    
+  php55:
+    image: peerapongsam/php:5.5.38-fpm-alpine
+    build: ./php/5.5
