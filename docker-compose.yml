@@ -21,6 +21,16 @@ services:
     expose:
       - "9000"
 
+  php70:
+    image: php:7.0.32-fpm-alpine
+    restart: unless-stopped
+    working_dir: /var/www/html
+    volumes:
+      - ./php/conf.d/timezone.ini:/usr/local/etc/php/conf.d/timezone.ini
+      - ${SOURCE_DIR}:${DESTINATION_DIR}
+    expose:
+      - "9000"
+
   php56:
     image: php:5.6.38-fpm-alpine
     restart: unless-stopped
@@ -58,5 +68,8 @@ services:
     environment:
       - NGINX_HOST=php72.dev.localhost
       - NGINX_HOST=php71.dev.localhost
+      - NGINX_HOST=php70.dev.localhost
+      - NGINX_HOST=php7.dev.localhost
       - NGINX_HOST=php56.dev.localhost
       - NGINX_HOST=php55.dev.localhost
+      - NGINX_HOST=php5.dev.localhost
