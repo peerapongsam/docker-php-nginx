@@ -52,8 +52,7 @@ services:
       - "9000"
 
   nginx:
-    image: nginx:1.15.5-alpine
-    build: ./nginx/
+    image: nginx:1.14.0-alpine
     restart: unless-stopped
     working_dir: /var/www/html
     volumes:
